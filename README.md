@@ -2,8 +2,7 @@
 ## Refleksi
 
 __2.1. Original code of broadcast chat__
-![image](https://github.com/rhaken/broadcast/assets/39646450/4f8368c9-266b-4a84-9888-f19b28df60ef)
-
+![image](https://github.com/rhaken/broadcast/assets/39646450/e776b4d7-1e83-4174-b2f4-85b311ffb3c0)
 
 - Untuk run server: `cargo run --bin server`
 - Untuk run client: `cargo run --bin client`
