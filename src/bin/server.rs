@@ -1,6 +1,7 @@
 use futures_util::sink::SinkExt;
 use futures_util::stream::StreamExt;
 use std::error::Error;
+use std::fmt::format;
 use std::net::SocketAddr;
 use tokio::net::{TcpListener, TcpStream};
 use tokio::sync::broadcast::{channel, Sender};
@@ -22,7 +23,7 @@ async fn handle_connection( addr: SocketAddr,
                     Some(Ok(msg)) => {
                         if let Some(text) = msg.as_text() {
                             println!("From client {addr:?} {text:?}");
-                            bcast_tx.send(text.into())?;
+                            bcast_tx.send(format!("{addr}:{text}"))?;
                         }
                     }
                     Some(Err(err)) => return Err(err.into()),
@@ -40,8 +41,8 @@ async fn handle_connection( addr: SocketAddr,
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let (bcast_tx, _) = channel(16);
 
-    let listener = TcpListener::bind("127.0.0.1:2000").await?;
-    println!("listening on port 2000");
+    let listener = TcpListener::bind("127.0.0.1:8080").await?;
+    println!("listening on port 8080");
 
     loop {
         let (socket, addr) = listener.accept().await?;
